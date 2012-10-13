@@ -19,7 +19,7 @@ class MoviesController < ApplicationController
     if @movie.save
       flash[:notice] = "#{@movie.title} was successfully created."
       redirect_to movies_path
-    else do
+    else
       render 'new'
     end
   end
