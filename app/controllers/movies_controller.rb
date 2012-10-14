@@ -8,7 +8,9 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
-  end
+    order = params[:order]
+    @movies.sort! { |m1, m2| m1.send(order) <=> m2.send(order) } unless !(order)
+   end
 
   def new
     # default: render 'new' template
