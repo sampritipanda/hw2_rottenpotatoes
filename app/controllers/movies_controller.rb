@@ -11,7 +11,8 @@ class MoviesController < ApplicationController
     order = params[:order]
     if order
       @movies.sort! { |m1, m2| m1.send(order) <=> m2.send(order) }
-    end
+      params[:highlight] = order
+    end  
    end
 
   def new
