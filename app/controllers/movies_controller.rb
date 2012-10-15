@@ -7,13 +7,24 @@ class MoviesController < ApplicationController
   end
 
   def index
+    reset_session
     @movies = Movie.all
-    order = params[:order]
+    @all_ratings = Movie.ratings
+    
+    ratings = (params[:ratings]) ? params[:ratings] : session[:ratings]
+    if ratings != nil and !ratings.empty? 
+      session[:ratings] = ratings
+      ratings = ratings.keys
+      @movies.delete_if { |m| !ratings.include? m.rating }
+    end
+    
+    order = (params[:order]) ? params[:order] : session[:order]
     if order
       @movies.sort! { |m1, m2| m1.send(order) <=> m2.send(order) }
       params[:highlight] = order
-    end  
-   end
+      session[:order] = order
+    end
+  end
 
   def new
     # default: render 'new' template
