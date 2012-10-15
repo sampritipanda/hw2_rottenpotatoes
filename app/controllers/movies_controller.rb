@@ -7,7 +7,6 @@ class MoviesController < ApplicationController
   end
 
   def index
-    reset_session
     @movies = Movie.all
     @all_ratings = Movie.ratings
     
