@@ -23,6 +23,11 @@ class MoviesController < ApplicationController
       params[:highlight] = order
       session[:order] = order
     end
+    
+    flash.keep
+    if session[:order] != params[:order] or session[:ratings] != params[:ratings]
+      redirect_to movies_path :order => session[:order], :ratings => session[:ratings]
+    end
   end
 
   def new
